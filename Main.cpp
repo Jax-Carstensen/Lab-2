@@ -27,7 +27,10 @@ int main() {
 	list2.insertItem(ItemType(8));
 	cout << "List 1: " << list.visualize() << endl;
 	cout << "List 2: " << list2.visualize() << endl;
-	LinkedList list3 = list.Union(list2);
-	cout << "Union between List1 & List2: " << list3.visualize() << endl;
+	LinkedList* list3 = list.Union(list2);
+	cout << "Union between List1 & List2: " << list3->visualize() << endl;
+	delete list3;
+	list.makeEmpty();
+	list2.makeEmpty();
 	return 0;
 }

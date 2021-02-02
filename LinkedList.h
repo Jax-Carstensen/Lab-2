@@ -10,16 +10,40 @@ using namespace std;
 class LinkedItem {
 private:
 	ItemType value;
-	LinkedItem* child;
-	LinkedItem* parent;
+	LinkedItem* child = NULL;
+	LinkedItem* parent = NULL;
 public:
-	void setChild(LinkedItem* newChild) { child = newChild; }
-	void setParent(LinkedItem* newParent) { parent = newParent; }
-	LinkedItem* getChild() { return child; }
-	LinkedItem* getParent() { return parent; }
+	~LinkedItem() {
+		return;
+		delete child;
+		delete parent;
+	}
+	LinkedItem() { value = ItemType(); }
 	LinkedItem(ItemType newValue) { value = newValue; }
+
+	void setChild(LinkedItem* newChild) { child = newChild; }
+	//Pre:  Another LinkedItem to replace the current child
+	//Post: Replaces the current child item with the provided one
+
+	void setParent(LinkedItem* newParent) { parent = newParent; }
+	//Pre:  Another LinkedItem to replace the current parent
+	//Post: Replaces the current parent item with the provided one
+
+	LinkedItem* getChild() { return child; }
+	//Pre:  None
+	//Post: Returns this item's child
+
+	LinkedItem* getParent() { return parent; }
+	//Pre:  None
+	//Post: Returns this item's parent
+
 	void setValue(ItemType newValue) { value = newValue; }
+	//Pre:  ItemType to set this LinkedItem's value to
+	//Post: Sets this LinkedItem's value
+
 	ItemType getValue() { return value; }
+	//Pre:  None
+	//Post: Returns this ItemType's value
 };
 
 
@@ -30,21 +54,53 @@ private:
 	int length = 0;
 	const int MAX_LENGTH = 999;
 public:
-	//getItemByIndex is much handier than using the position pointer in my opinion but it was required in the specifications
+	LinkedList() {}
+	~LinkedList() {}
 	LinkedItem* position = NULL;
+
 	void getNextItem();
+	//Pre:  None
+	//Post: Sets the value of position to the next item in the list (or 0 if it reached the end)
+
 	void resetList() { position = start; }
+	//Pre:  None
+	//Post: Resets the current position in the list
+
 	void insertItem(ItemType value);
+	//Pre:  A value to insert into the list
+	//Post: Adds that value to the end of the list
+
 	void makeEmpty();
+	//Pre:  None
+	//Post: Removes all items in the list
+
 	void deleteItem(ItemType value);
+	//Pre:  An ItemType to delete
+	//Post: Deletes the first occurence of the provided value in the list
+
 	bool isFull() { return MAX_LENGTH == length; }
+	//Pre:  None
+	//Post: Returns true if the list is at max capacity, and false if it is not
+
 	LinkedItem* search(ItemType value);
+	//Pre:  An ItemType to search through the list for
+	//Post: Returns the first node in the list containing the value, or NULL if the list doesn't contain the value
+
 	int getLength() { return length; }
-	LinkedList Union(LinkedList otherList);
-	//Returns the item at the specified index
+	//Pre:  None
+	//Post: Returns the length of the list
+
+	LinkedList* Union(LinkedList otherList);
+	//Pre:  A second linked list to combine with the current one
+	//Post: A list contatining all values from both lists without any duplicates
+
 	LinkedItem* getItemByIndex(int index);
-	//Creates a string that displays all values in the list
+	//Pre:  The index in the list at which a specific item resides
+	//Post: The node at the provided position, or NULL if the position is too high or low
+
 	string visualize();
+	//Pre:  None
+	//Post: Returns a string visualizing all values in the list
 };
 
 #endif

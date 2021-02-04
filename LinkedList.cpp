@@ -3,9 +3,9 @@
 
 using namespace std;
 
-LinkedList LinkedList::Union(LinkedList otherList) {
+LinkedList* LinkedList::Union(LinkedList otherList) {
 	//List to return
-	LinkedList newLinkedList = LinkedList();
+	LinkedList* newLinkedList = new LinkedList();
 	//Current item we are testing
 	LinkedItem* item = NULL;
 	//Iterates through every item in the list
@@ -17,14 +17,14 @@ LinkedList LinkedList::Union(LinkedList otherList) {
 		else
 			item = item->getChild();
 		//If the item is not in the list, add it to the list
-		if (newLinkedList.search(item->getValue()) == NULL)
-			newLinkedList.insertItem(item->getValue());
+		if (newLinkedList->search(item->getValue()) == NULL)
+			newLinkedList->insertItem(item->getValue());
 	}
 	//Same thing as the previous loop but for the second list
 	for (int j = 0; j < otherList.getLength(); j++) {
 		item = otherList.getItemByIndex(j);
-		if (newLinkedList.search(item->getValue()) == NULL)
-			newLinkedList.insertItem(item->getValue());
+		if (newLinkedList->search(item->getValue()) == NULL)
+			newLinkedList->insertItem(item->getValue());
 	}
 	return newLinkedList;
 }
@@ -60,6 +60,7 @@ void LinkedList::insertItem(ItemType value) {
 	length++;
 }
 LinkedItem* LinkedList::getItemByIndex(int index) {
+	if (index < 0 || index > length) return NULL;
 	LinkedItem* currentItem = NULL;
 	for (int i = 0; i <= length; i++) {
 		if (i == 0)

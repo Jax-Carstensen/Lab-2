@@ -63,12 +63,12 @@ class LinkedList {
 private:
 	LinkedItem* start = NULL;
 	LinkedItem* end = NULL;
+	LinkedItem* position = NULL;
 	int length = 0;
 	const int MAX_LENGTH = 999;
 public:
 	LinkedList() {}
 	~LinkedList() {}
-	LinkedItem* position = NULL;
 
 	void getNextItem();
 	//Pre:  None
